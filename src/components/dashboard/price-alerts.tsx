@@ -147,7 +147,7 @@ export default function PriceAlerts({ alerts, assets, onAddAlert, onToggleAlert,
               <TableRow key={alert.id}>
                 <TableCell className="font-medium">{alert.assetTicker}</TableCell>
                 <TableCell>
-                    {alert.type === 'above' ? 'Above' : 'Below'} ${alert.targetPrice.toLocaleString()}
+                    {alert.type === 'above' ? 'Above' : 'Below'} ${alert.targetPrice.toLocaleString('en-US')}
                 </TableCell>
                 <TableCell>
                     <Badge variant={alert.status === 'active' ? 'default' : alert.status === 'triggered' ? 'secondary' : 'outline'} className={cn(
