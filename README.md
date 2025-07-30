@@ -19,3 +19,7 @@ npm run dev
 ```
 
 Then open [http://localhost:9002](http://localhost:9002) in your browser.
+
+## Author
+
+Azwar Riyadh Subarkah @PT Digi Media Komunika
