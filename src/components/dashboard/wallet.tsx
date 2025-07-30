@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -66,7 +67,7 @@ export default function Wallet({ assets, cashBalance, onTrade }: WalletProps) {
                     <div>
                       <div>{asset.ticker}</div>
                       <div className="text-xs text-muted-foreground">
-                        {asset.quantity?.toLocaleString() ?? 0}
+                        {asset.quantity?.toLocaleString('en-US') ?? 0}
                       </div>
                     </div>
                   </TableCell>
