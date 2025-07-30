@@ -7,10 +7,12 @@ import { Progress } from '@/components/ui/progress';
 import { Lightbulb, TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import type { TradingInsights } from '@/types';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 interface AITradingInsightsProps {
   insights: TradingInsights | null;
   loading: boolean;
+  onTrade: (tradeType: 'buy' | 'sell') => void;
 }
 
 const SignalIcon = ({ signal }: { signal: string }) => {
@@ -29,7 +31,7 @@ const SignalBadge = ({ signal }: { signal: string }) => {
   return <Badge variant="outline" className={cn("text-base", variant)}>{signal}</Badge>;
 };
 
-export default function AITradingInsights({ insights, loading }: AITradingInsightsProps) {
+export default function AITradingInsights({ insights, loading, onTrade }: AITradingInsightsProps) {
   if (loading) {
     return (
       <Card>
@@ -69,6 +71,9 @@ export default function AITradingInsights({ insights, loading }: AITradingInsigh
     );
   }
 
+  const isBuySignal = insights.tradingSignal.toLowerCase().includes('buy');
+  const isSellSignal = insights.tradingSignal.toLowerCase().includes('sell');
+
   return (
     <Card className="bg-card/50 backdrop-blur-sm">
       <CardHeader>
@@ -101,6 +106,17 @@ export default function AITradingInsights({ insights, loading }: AITradingInsigh
           </div>
           <Progress value={insights.confidenceScore * 100} className="h-2" />
         </div>
+        
+        {(isBuySignal || isSellSignal) && (
+          <div className="pt-4 border-t">
+            <Button 
+                className={cn("w-full", isBuySignal && "bg-green-600 hover:bg-green-700", isSellSignal && "bg-red-600 hover:bg-red-700")}
+                onClick={() => onTrade(isBuySignal ? 'buy' : 'sell')}
+            >
+                {isBuySignal ? 'Execute Buy' : 'Execute Sell'}
+            </Button>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

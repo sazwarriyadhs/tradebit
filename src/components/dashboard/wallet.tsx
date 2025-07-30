@@ -8,25 +8,15 @@ import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Wallet as WalletIcon, ArrowDown, ArrowUp } from 'lucide-react';
 import type { Asset } from '@/types';
-import { TradeDialog } from './trade-dialog';
 import { cn } from '@/lib/utils';
 
 interface WalletProps {
   assets: Asset[];
   cashBalance: number;
-  onTrade: (ticker: string, tradeType: 'buy' | 'sell', quantity: number, price: number) => void;
+  onTrade: (asset: Asset, tradeType: 'buy' | 'sell') => void;
 }
 
 export default function Wallet({ assets, cashBalance, onTrade }: WalletProps) {
-  const [selectedAsset, setSelectedAsset] = React.useState<Asset | null>(null);
-  const [tradeType, setTradeType] = React.useState<'buy' | 'sell'>('buy');
-  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
-
-  const handleOpenDialog = (asset: Asset, type: 'buy' | 'sell') => {
-    setSelectedAsset(asset);
-    setTradeType(type);
-    setIsDialogOpen(true);
-  };
 
   const totalPortfolioValue = assets.reduce((acc, asset) => {
     return acc + (asset.quantity ?? 0) * asset.price;
@@ -75,10 +65,10 @@ export default function Wallet({ assets, cashBalance, onTrade }: WalletProps) {
                     ${((asset.quantity ?? 0) * asset.price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </TableCell>
                   <TableCell className="text-right">
-                    <Button size="icon" variant="ghost" className="h-8 w-8" onClick={() => handleOpenDialog(asset, 'buy')}>
+                    <Button size="icon" variant="ghost" className="h-8 w-8" onClick={() => onTrade(asset, 'buy')}>
                       <ArrowUp className="h-4 w-4 text-green-500" />
                     </Button>
-                    <Button size="icon" variant="ghost" className="h-8 w-8" onClick={() => handleOpenDialog(asset, 'sell')}>
+                    <Button size="icon" variant="ghost" className="h-8 w-8" onClick={() => onTrade(asset, 'sell')}>
                       <ArrowDown className="h-4 w-4 text-red-500" />
                     </Button>
                   </TableCell>
@@ -94,16 +84,6 @@ export default function Wallet({ assets, cashBalance, onTrade }: WalletProps) {
           </Table>
         </CardContent>
       </Card>
-      {selectedAsset && (
-        <TradeDialog
-          asset={selectedAsset}
-          tradeType={tradeType}
-          cashBalance={cashBalance}
-          isOpen={isDialogOpen}
-          onOpenChange={setIsDialogOpen}
-          onTrade={onTrade}
-        />
-      )}
     </>
   );
 }
