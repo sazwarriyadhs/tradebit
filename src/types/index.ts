@@ -21,6 +21,7 @@ export type Asset = {
     '1Y': PriceHistoryData[];
   };
   news: NewsArticle[];
+  quantity?: number;
 };
 
 export type NewsArticle = {
@@ -45,4 +46,8 @@ export type TradingInsights = {
   rationale: string;
   confidenceScore: number;
   sentimentSummary: string;
+};
+
+export type User = {
+  cashBalance: number;
 };

@@ -1,4 +1,4 @@
-import type { Asset, NewsArticle, Alert } from '@/types';
+import type { Asset, NewsArticle, Alert, User } from '@/types';
 
 const generatePriceHistory = (basePrice: number) => {
   const generateData = (days: number, points: number) => {
@@ -37,6 +37,7 @@ export const assets: Asset[] = [
       { id: 'n1', source: 'CoinDesk', headline: 'Bitcoin Halving Event Creates New Market Dynamics', timestamp: '2h ago', url: '#' },
       { id: 'n2', source: 'Bloomberg', headline: 'Institutional Interest in Bitcoin ETFs Remains Strong', timestamp: '5h ago', url: '#' },
     ],
+    quantity: 0.5,
   },
   {
     id: '2',
@@ -54,6 +55,7 @@ export const assets: Asset[] = [
       { id: 'n3', source: 'Reuters', headline: 'Ethereum "Dencun" Upgrade Goes Live, Slashing Fees', timestamp: '1d ago', url: '#' },
       { id: 'n4', source: 'The Block', headline: 'Vitalik Buterin Proposes New EIP to Improve Staking', timestamp: '3d ago', url: '#' },
     ],
+    quantity: 10,
   },
   {
     id: '3',
@@ -71,6 +73,7 @@ export const assets: Asset[] = [
       { id: 'n5', source: 'Wall Street Journal', headline: 'Apple Unveils New AI Features for iOS 18 at WWDC', timestamp: '4h ago', url: '#' },
       { id: 'n6', source: 'CNBC', headline: 'Analysts Upgrade AAPL Stock on Vision Pro Sales Forecast', timestamp: '1d ago', url: '#' },
     ],
+    quantity: 50,
   },
   {
     id: '4',
@@ -88,6 +91,7 @@ export const assets: Asset[] = [
       { id: 'n7', source: 'TechCrunch', headline: 'Google I/O Showcases Gemini AI Integration Across Products', timestamp: '8h ago', url: '#' },
       { id: 'n8', source: 'MarketWatch', headline: 'Alphabet faces antitrust scrutiny in the EU over advertising practices', timestamp: '2d ago', url: '#' },
     ],
+    quantity: 0,
   },
 ];
 
@@ -103,3 +107,7 @@ export const marketNews: NewsArticle[] = [
   { id: 'mn3', source: 'The Economist', headline: 'The Rise of AI in Corporate Decision-Making: Opportunities and Risks', timestamp: '4h ago', url: '#', summary: 'A deep dive into how artificial intelligence is transforming business strategy, from marketing and sales to operations and finance, and the ethical considerations that arise.' },
   { id: 'mn4', source: 'Financial Times', headline: 'European Central Bank Signals Potential Rate Cut in June', timestamp: '1d ago', url: '#', summary: 'ECB officials have grown more confident that inflation is returning to its 2% target, paving the way for a possible interest rate reduction next month.' },
 ];
+
+export const user: User = {
+    cashBalance: 50000,
+};

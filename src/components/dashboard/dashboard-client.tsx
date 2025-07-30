@@ -29,6 +29,8 @@ import AssetOverview from './asset-overview';
 import AITradingInsights from './trading-insights';
 import NewsFeed from './news-feed';
 import PriceAlerts from './price-alerts';
+import Wallet from './wallet';
+import { assets as initialAssets, user } from '@/lib/data';
 
 interface DashboardClientProps {
   assets: Asset[];
@@ -36,7 +38,9 @@ interface DashboardClientProps {
   marketNews: NewsArticle[];
 }
 
-export default function DashboardClient({ assets, alerts: initialAlerts, marketNews }: DashboardClientProps) {
+export default function DashboardClient({ assets: serverAssets, alerts: initialAlerts, marketNews }: DashboardClientProps) {
+  const [assets, setAssets] = React.useState<Asset[]>(initialAssets);
+  const [cashBalance, setCashBalance] = React.useState<number>(user.cashBalance);
   const [selectedAsset, setSelectedAsset] = React.useState<Asset>(assets[0]);
   const [insights, setInsights] = React.useState<TradingInsights | null>(null);
   const [loadingInsights, setLoadingInsights] = React.useState(true);
@@ -79,6 +83,25 @@ export default function DashboardClient({ assets, alerts: initialAlerts, marketN
     setAlerts(prev => prev.filter(a => a.id !== alertId));
   };
 
+  const handleTrade = (ticker: string, tradeType: 'buy' | 'sell', quantity: number, price: number) => {
+    const cost = quantity * price;
+
+    setAssets(currentAssets => 
+      currentAssets.map(asset => {
+        if (asset.ticker === ticker) {
+          const newQuantity = tradeType === 'buy' 
+            ? (asset.quantity ?? 0) + quantity
+            : (asset.quantity ?? 0) - quantity;
+          return { ...asset, quantity: newQuantity };
+        }
+        return asset;
+      })
+    );
+
+    setCashBalance(currentBalance => 
+      tradeType === 'buy' ? currentBalance - cost : currentBalance + cost
+    );
+  };
 
   return (
     <SidebarProvider>
@@ -138,6 +161,11 @@ export default function DashboardClient({ assets, alerts: initialAlerts, marketN
                 <NewsFeed news={marketNews} assetNews={selectedAsset.news} />
               </div>
               <div className="xl:col-span-1 flex flex-col gap-6">
+                 <Wallet 
+                  assets={assets.filter(a => (a.quantity ?? 0) > 0)} 
+                  cashBalance={cashBalance}
+                  onTrade={handleTrade}
+                />
                 <PriceAlerts
                   alerts={alerts.filter(a => a.assetTicker === selectedAsset.ticker || a.assetTicker === "All")}
                   assets={assets}
