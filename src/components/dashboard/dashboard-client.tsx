@@ -1,7 +1,9 @@
+
 'use client';
 
 import * as React from 'react';
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
 import {
   SidebarProvider,
   Sidebar,
@@ -50,6 +52,8 @@ export default function DashboardClient({ assets: serverAssets, alerts: initialA
   const [tradeAsset, setTradeAsset] = React.useState<Asset | null>(null);
   const [tradeType, setTradeType] = React.useState<'buy' | 'sell'>('buy');
   const [isTradeDialogOpen, setIsTradeDialogOpen] = React.useState(false);
+  
+  const { theme } = useTheme();
 
   React.useEffect(() => {
     async function fetchInsights() {
@@ -124,7 +128,11 @@ export default function DashboardClient({ assets: serverAssets, alerts: initialA
         <Sidebar>
           <SidebarHeader className="p-4">
             <div className="flex items-center gap-3">
-               <Image src="/Logo.png" alt="TradeFlow Logo" width={300} height={80} style={{ width: 'auto', height: '50px' }} />
+              {theme === 'dark' ? (
+                <Image src="/Logo2.png" alt="TradeFlow Logo" width={300} height={80} style={{ width: 'auto', height: '50px' }} />
+              ) : (
+                <Image src="/Logo.png" alt="TradeFlow Logo" width={300} height={80} style={{ width: 'auto', height: '50px' }} />
+              )}
             </div>
           </SidebarHeader>
           <SidebarContent>
