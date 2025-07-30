@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import Image from 'next/image';
 import {
   SidebarProvider,
   Sidebar,
@@ -20,7 +21,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { LogOut, Settings, User, ChevronDown } from 'lucide-react';
-import { Logo } from '@/components/icons/logo';
 import type { Asset, Alert, NewsArticle, TradingInsights } from '@/types';
 import { getTradingInsights } from '@/app/actions';
 import Watchlist from './watchlist';
@@ -124,8 +124,7 @@ export default function DashboardClient({ assets: serverAssets, alerts: initialA
         <Sidebar>
           <SidebarHeader className="p-4">
             <div className="flex items-center gap-3">
-              <Logo className="size-8" />
-              <h1 className="text-2xl font-headline font-semibold">TradeFlow</h1>
+               <Image src="/Logo.png" alt="TradeFlow Logo" width={150} height={40} />
             </div>
           </SidebarHeader>
           <SidebarContent>
