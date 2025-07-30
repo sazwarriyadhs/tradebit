@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Wallet as WalletIcon, ArrowDown, ArrowUp } from 'lucide-react';
+import { ArrowDown, ArrowUp } from 'lucide-react';
 import type { Asset } from '@/types';
 import { cn } from '@/lib/utils';
 
@@ -27,7 +27,7 @@ export default function Wallet({ assets, cashBalance, onTrade }: WalletProps) {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2 font-headline">
-            <WalletIcon className="text-accent" />
+            <Image src="/iconbit.png" alt="Wallet Icon" width={24} height={24} />
             My Wallet
           </CardTitle>
           <CardDescription>
