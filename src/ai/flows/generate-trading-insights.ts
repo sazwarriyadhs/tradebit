@@ -33,26 +33,15 @@ const prompt = ai.definePrompt({
   name: 'generateTradingInsightsPrompt',
   input: {schema: GenerateTradingInsightsInputSchema},
   output: {schema: GenerateTradingInsightsOutputSchema},
-  prompt: `You are an expert financial analyst specializing in generating trading insights.
+  prompt: `You are an expert financial analyst. Based on the provided news summary and historical price data for {{{ticker}}}, generate a trading signal (Buy, Sell, or Hold), a rationale for the signal, and a confidence score (0-1).
 
-  Based on the provided news summary and historical price data for a given ticker, you will generate a trading signal (Buy, Sell, or Hold), a rationale for the signal, and a confidence score (0-1).
+News Summary:
+"{{{newsSummary}}}"
 
-  News Summary: {{{newsSummary}}}
-  Historical Price Data: {{{historicalPriceData}}}
+Historical Price Data Summary:
+"{{{historicalPriceData}}}"
 
-  Consider both the sentiment expressed in the news and the trends observed in the historical price data to form your analysis.
-
-  Output your trading signal, rationale, and confidence score in the following format:
-  {
-    "tradingSignal": "...",
-    "rationale": "...",
-    "confidenceScore": 0.0
-  }
-
-  tradingSignal: A trading signal (e.g., Buy, Sell, Hold) based on the analysis.
-  rationale: The rationale behind the trading signal, based on news sentiment and historical price data.
-  confidenceScore: A confidence score (0-1) indicating the reliability of the trading signal.
-  `,
+Analyze the sentiment from the news and the trends from the price data to make your recommendation. Your rationale should be concise and directly support your signal. The confidence score should reflect your certainty in the analysis.`,
 });
 
 const generateTradingInsightsFlow = ai.defineFlow(
