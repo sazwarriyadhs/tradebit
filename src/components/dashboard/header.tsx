@@ -4,6 +4,7 @@ import { SidebarTrigger } from '@/components/ui/sidebar';
 import type { Asset } from '@/types';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { ThemeSwitcher } from '../theme-switcher';
 
 interface HeaderProps {
   asset: Asset;
@@ -27,6 +28,7 @@ export default function Header({ asset }: HeaderProps) {
             className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
           />
         </div>
+        <ThemeSwitcher />
       </div>
     </header>
   );

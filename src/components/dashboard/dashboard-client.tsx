@@ -124,7 +124,7 @@ export default function DashboardClient({ assets: serverAssets, alerts: initialA
         <Sidebar>
           <SidebarHeader className="p-4">
             <div className="flex items-center gap-3">
-               <Image src="/Logo.png" alt="TradeFlow Logo" width={300} height={80} />
+               <Image src="/Logo.png" alt="TradeFlow Logo" width={300} height={80} style={{ width: 'auto', height: '50px' }} />
             </div>
           </SidebarHeader>
           <SidebarContent>
